@@ -3,13 +3,13 @@
     box-shadow: 0 0 10px 2px transparent;
   }
   25% {
-    box-shadow: 0 0 10px 2px green;
+    box-shadow: 0 0 10px 2px rgb(0, 242, 0);
   }
   50% {
     box-shadow: 0 0 10px 2px transparent;
   }
   75% {
-    box-shadow: 0 0 10px 2px green;
+    box-shadow: 0 0 10px 2px rgb(0, 247, 0);
   }
   100% {
     box-shadow: 0 0 10px 2px transparent;

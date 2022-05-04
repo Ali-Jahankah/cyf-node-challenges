@@ -1,8 +1,13 @@
+import Context from "../../context/Context";
 import "../../style/App.css";
 import Home from "./Home";
 
 function App() {
-  return <Home></Home>;
+  return (
+    <Context>
+      <Home></Home>
+    </Context>
+  );
 }
 
 export default App;

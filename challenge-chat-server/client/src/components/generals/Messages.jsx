@@ -1,21 +1,26 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import Message from "./Message";
+import UserContext from "../../context/UserContext";
 import "../../style/messages.css";
-const Messages = ({ showMessages, setShowMessages, data }) => {
-  const [messages, setMessages] = useState(data);
+const Messages = () => {
+  const context = useContext(UserContext);
   return (
     <article className="messages_cont">
       <button
         className="messages_btn"
-        onClick={() => setShowMessages(!showMessages)}
+        onClick={() => context.setShowMessages(!context.showMessages)}
       >
-        {showMessages ? "Hide Messages" : "Show Messages"}
+        {context.showMessages ? "Hide Messages" : "Show Messages"}
       </button>
-      {showMessages && (
+      {context.showMessages && (
         <section className="messages_section">
-          {messages.map((item) => (
-            <Message item={item}></Message>
-          ))}
+          {context.data ? (
+            context.messages.map((item, index) => (
+              <Message key={index} item={item}></Message>
+            ))
+          ) : (
+            <h1>Loading...</h1>
+          )}
         </section>
       )}
     </article>
