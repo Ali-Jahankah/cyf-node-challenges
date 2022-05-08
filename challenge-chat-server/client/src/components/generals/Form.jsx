@@ -8,13 +8,14 @@ const Form = () => {
     <>
       <article className="form_main">
         <section className="form_cont">
-          <form className="form" onSubmit={() => context.formHandler()}>
+          <form className="form" onSubmit={(e) => context.formHandler(e)}>
             <div>
               <input
                 className="form_input"
                 placeholder="Name..."
-                onKeyDown={(event) => context.inputHandler(event, 20)}
+                onChange={(event) => context.inputHandler(event, 20)}
                 onPaste={(e) => e.preventDefault()}
+                value={context.nameInput}
               ></input>
               <span style={{ color: "red" }}>{context.nameErrorMessage}</span>
             </div>
@@ -23,7 +24,8 @@ const Form = () => {
               className="form_input textarea"
               placeholder="Message..."
               rows={6}
-              onKeyDown={(event) => context.inputHandler(event, 100)}
+              onChange={(event) => context.inputHandler(event, 100)}
+              value={context.textInput}
             ></textarea>
             <span style={{ color: "red" }}>{context.textErrorMessage}</span>
             <button className="form_btn" type="submit">

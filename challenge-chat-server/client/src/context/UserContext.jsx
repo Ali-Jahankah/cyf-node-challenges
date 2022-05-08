@@ -17,5 +17,6 @@ const UserContext = createContext({
   textErrorMessage: "",
   setTextErrorMessage: "",
   inputHandler: () => {},
+  removeHandler: () => {},
 });
 export default UserContext;

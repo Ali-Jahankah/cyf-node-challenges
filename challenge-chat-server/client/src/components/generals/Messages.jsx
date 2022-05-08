@@ -14,12 +14,12 @@ const Messages = () => {
       </button>
       {context.showMessages && (
         <section className="messages_section">
-          {context.data ? (
+          {context.messages.length !== 0 ? (
             context.messages.map((item, index) => (
               <Message key={index} item={item}></Message>
             ))
           ) : (
-            <h1>Loading...</h1>
+            <h1 style={{ color: "white" }}>No messages to show! :(</h1>
           )}
         </section>
       )}

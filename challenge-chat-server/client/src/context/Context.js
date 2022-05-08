@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import UserContext from "./UserContext";
-
+import { v4 as uuidv4 } from "uuid";
 const Context = ({ children }) => {
   const [showMessages, setShowMessages] = useState(false);
   const [data, setData] = useState([]);
@@ -10,31 +10,89 @@ const Context = ({ children }) => {
   const [nameErrorMessage, setNameErrorMessage] = useState("");
   const [textErrorMessage, setTextErrorMessage] = useState("");
 
+  useEffect(() => {
+    fetch("https://cyf-ali-jahankah-chat-server.glitch.me/")
+      .then((res) => res.json())
+      .then((data) => {
+        !data && setData(data);
+        setMessages(data);
+      });
+  }, [data]);
+
   const inputHandler = (event, num) => {
+    let myValue = event.target.value.replace("  ", " ");
     if (num === 100) {
-      if (event.target.value.length >= 100 && event.key !== "Backspace") {
+      if (myValue >= 100 && event.key !== "Backspace") {
         event.preventDefault();
         setTextErrorMessage(`Not more than ${num} letters!`);
       } else {
         setTextErrorMessage("");
-
-        setTextInput(event.target.value);
+        setTextInput(myValue);
       }
     } else {
-      if (event.target.value.length >= 20 && event.key !== "Backspace") {
+      if (myValue.length >= 20 && event.key !== "Backspace") {
         event.preventDefault();
         setNameErrorMessage(`Not more than ${num} letters!`);
       } else {
         setNameErrorMessage("");
 
-        setNameInput(event.target.value);
+        setNameInput(myValue);
       }
     }
   };
 
   const formHandler = (e) => {
-    if (nameInput.length !== 0 && textInput !== 0) {
+    e.preventDefault();
+
+    if (nameInput.length !== 0 && textInput.length !== 0) {
+      const user = {
+        id: uuidv4(),
+        from: nameInput,
+        text: textInput,
+      };
+      const postOptions = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      };
+      fetch(
+        "https://cyf-ali-jahankah-chat-server.glitch.me/messages",
+        postOptions
+      )
+        .then((res) => {
+          if (res && res.status >= 200 && res.status < 400) {
+            return res.json();
+          }
+        })
+        .then((data) => setData(data));
+    } else {
+      setNameErrorMessage("Please fill the input!");
+      setTextErrorMessage("Please fill the input!");
     }
+  };
+
+  const removeHandler = (id) => {
+    const target = messages.find((item) => item.id === id);
+    console.log(target);
+    const deleteOptions = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: "",
+    };
+    fetch(
+      `https://cyf-ali-jahankah-chat-server.glitch.me/messages/${target.id}`,
+      deleteOptions
+    )
+      .then((res) => {
+        if (res && res.status >= 200 && res.status < 300) {
+          return res.json();
+        }
+      })
+      .then((data) => setData(data));
   };
 
   return (
@@ -56,6 +114,7 @@ const Context = ({ children }) => {
         textErrorMessage,
         setTextErrorMessage,
         inputHandler,
+        removeHandler,
       }}
     >
       {children}
