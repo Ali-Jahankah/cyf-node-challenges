@@ -3,26 +3,35 @@ import UserContext from "./UserContext";
 import { v4 as uuidv4 } from "uuid";
 const Context = ({ children }) => {
   const [showMessages, setShowMessages] = useState(false);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null);
   const [messages, setMessages] = useState([]);
   const [nameInput, setNameInput] = useState("");
   const [textInput, setTextInput] = useState("");
   const [nameErrorMessage, setNameErrorMessage] = useState("");
   const [textErrorMessage, setTextErrorMessage] = useState("");
+  const [nameSearch, setnameSearch] = useState("");
+  const [searchErrorMessage, setSearchErrorMessage] = useState("");
 
   useEffect(() => {
     fetch("https://cyf-ali-jahankah-chat-server.glitch.me/")
       .then((res) => res.json())
-      .then((data) => {
-        !data && setData(data);
-        setMessages(data);
+      .then((all) => {
+        setData(all);
+        setMessages(all);
+      });
+  }, []);
+  useEffect(() => {
+    fetch("https://cyf-ali-jahankah-chat-server.glitch.me/")
+      .then((res) => res.json())
+      .then((all) => {
+        setMessages(all);
       });
   }, [data]);
 
   const inputHandler = (event, num) => {
     let myValue = event.target.value.replace("  ", " ");
     if (num === 100) {
-      if (myValue >= 100 && event.key !== "Backspace") {
+      if (myValue.length >= 100 && event.key !== "Backspace") {
         event.preventDefault();
         setTextErrorMessage(`Not more than ${num} letters!`);
       } else {
@@ -75,7 +84,6 @@ const Context = ({ children }) => {
 
   const removeHandler = (id) => {
     const target = messages.find((item) => item.id === id);
-    console.log(target);
     const deleteOptions = {
       method: "DELETE",
       headers: {
@@ -93,6 +101,18 @@ const Context = ({ children }) => {
         }
       })
       .then((data) => setData(data));
+  };
+  const nameHandler = () => {
+    if (data.length !== 0) {
+      const target = data.filter((item) => item.from.includes(nameSearch));
+      console.log(target);
+      if (target !== undefined) {
+        setMessages(target);
+        setSearchErrorMessage("");
+      } else {
+        setSearchErrorMessage("User Not Found! :(");
+      }
+    }
   };
 
   return (
@@ -115,6 +135,11 @@ const Context = ({ children }) => {
         setTextErrorMessage,
         inputHandler,
         removeHandler,
+        nameSearch,
+        setnameSearch,
+        nameHandler,
+        searchErrorMessage,
+        setSearchErrorMessage,
       }}
     >
       {children}

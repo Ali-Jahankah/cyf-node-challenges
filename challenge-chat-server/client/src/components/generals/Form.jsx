@@ -40,10 +40,15 @@ const Form = () => {
               type="text"
               className="search_input"
               placeholder="Search by ID..."
+              value={context.nameSearch}
+              onChange={(e) => context.setnameSearch(e.target.value)}
             />
-            <button className="search_btn">Search ID</button>
+            <button className="search_btn" onClick={context.nameHandler}>
+              Search Name
+            </button>
           </div>
         </section>
+        <span style={{ color: "red" }}>{context.searchErrorMessage}</span>
       </article>
     </>
   );

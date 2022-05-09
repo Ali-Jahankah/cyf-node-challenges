@@ -18,5 +18,10 @@ const UserContext = createContext({
   setTextErrorMessage: "",
   inputHandler: () => {},
   removeHandler: () => {},
+  nameSearch: "",
+  setnameSearch: () => {},
+  nameHandler: () => {},
+  searchErrorMessage: "",
+  setSearchErrorMessage: () => {},
 });
 export default UserContext;
