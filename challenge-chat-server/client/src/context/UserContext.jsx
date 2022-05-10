@@ -23,5 +23,7 @@ const UserContext = createContext({
   nameHandler: () => {},
   searchErrorMessage: "",
   setSearchErrorMessage: () => {},
+  setSearchHandler: () => {},
+  resetHandler: () => {},
 });
 export default UserContext;

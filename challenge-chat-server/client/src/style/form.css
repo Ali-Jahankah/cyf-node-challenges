@@ -96,6 +96,15 @@ textarea,
 .search_btn:hover {
   box-shadow: 0 0 5px 2px rgb(0, 213, 255);
 }
+.cancel_btn {
+  box-shadow: 0 0 5px 2px rgb(248, 48, 48);
+}
+.cancel_btn:focus {
+  box-shadow: 0 0 5px 3px rgb(255, 0, 0);
+}
+.cancel_btn:hover {
+  box-shadow: 0 0 5px 3px rgb(255, 0, 21);
+}
 .search_div {
   width: 100%;
   display: flex;

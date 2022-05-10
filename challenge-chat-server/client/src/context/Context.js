@@ -72,6 +72,7 @@ const Context = ({ children }) => {
       )
         .then((res) => {
           if (res && res.status >= 200 && res.status < 400) {
+            resetHandler();
             return res.json();
           }
         })
@@ -105,14 +106,17 @@ const Context = ({ children }) => {
   const nameHandler = () => {
     if (data.length !== 0) {
       const target = data.filter((item) => item.from.includes(nameSearch));
-      console.log(target);
-      if (target !== undefined) {
-        setMessages(target);
-        setSearchErrorMessage("");
-      } else {
-        setSearchErrorMessage("User Not Found! :(");
-      }
+
+      setMessages(target);
+      target.length !== 0
+        ? setSearchErrorMessage("")
+        : setSearchErrorMessage("User Not Found! :(");
     }
+  };
+  const resetHandler = () => {
+    setTextInput("");
+    setNameInput("");
+    setnameSearch("");
   };
 
   return (
@@ -140,6 +144,7 @@ const Context = ({ children }) => {
         nameHandler,
         searchErrorMessage,
         setSearchErrorMessage,
+        resetHandler,
       }}
     >
       {children}

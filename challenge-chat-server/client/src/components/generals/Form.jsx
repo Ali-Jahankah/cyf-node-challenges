@@ -46,6 +46,16 @@ const Form = () => {
             <button className="search_btn" onClick={context.nameHandler}>
               Search Name
             </button>
+            <button
+              className="search_btn cancel_btn"
+              onClick={() => {
+                context.setMessages(context.data);
+                context.setSearchErrorMessage("");
+                context.resetHandler();
+              }}
+            >
+              Cancel
+            </button>
           </div>
         </section>
         <span style={{ color: "red" }}>{context.searchErrorMessage}</span>
