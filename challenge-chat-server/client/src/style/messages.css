@@ -1,6 +1,11 @@
 .messages_section {
   padding: 1em;
   width: 100%;
+  height: 70vh;
+  overflow-y: scroll;
+}
+.messages_section::-webkit-scrollbar {
+  display: none;
 }
 .messages_header {
   width: 100%;
