@@ -8,12 +8,23 @@ const Messages = () => {
 
   return (
     <article className="messages_cont">
-      <button
-        className="messages_btn"
-        onClick={() => context.setShowMessages(!context.showMessages)}
-      >
-        {context.showMessages ? "Hide Messages" : "Show Messages"}
-      </button>
+      <div className="messages_header">
+        <a href="https://linktr.ee/uaral" style={{ display: "block" }}>
+          <img
+            className="contact_logo"
+            src="/img/ali.png"
+            alt="contact me link"
+          ></img>
+          <span>Contact:</span>
+        </a>
+        <button
+          className="messages_btn"
+          onClick={() => context.setShowMessages(!context.showMessages)}
+        >
+          {context.showMessages ? "Hide Messages" : "Show Messages"}
+        </button>
+      </div>
+
       {context.showMessages && (
         <section className="messages_section">
           {context.messages.length !== 0 ? (

@@ -11,10 +11,17 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: black;
+  background: url("../img/back.jpg");
+  background-size: auto;
+  background-position: -80% top;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+@media screen and (min-width: 700px) {
+  body {
+    background-position: top right;
+  }
 }
