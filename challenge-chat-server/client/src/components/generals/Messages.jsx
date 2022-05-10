@@ -4,7 +4,6 @@ import UserContext from "../../context/UserContext";
 import "../../style/messages.css";
 const Messages = () => {
   const context = useContext(UserContext);
-  console.log(context.messages);
 
   return (
     <article className="messages_cont">
